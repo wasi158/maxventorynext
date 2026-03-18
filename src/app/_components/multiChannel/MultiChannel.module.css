@@ -1,0 +1,12 @@
+.platformGrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 4px;
+}
+
+@media (max-width: 768px) {
+	.platformGrid {
+		display: flex;
+		flex-direction: column;
+	}
+}
