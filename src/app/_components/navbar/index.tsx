@@ -18,14 +18,26 @@ const Navbar = () => {
 	const scrollToSection = (id: string) => {
 		const el = document.getElementById(id);
 		if (el) {
-			el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			// Get navbar height dynamically
+			const navbar = document.querySelector('nav');
+			const navbarHeight = navbar?.offsetHeight || 64; // Fallback to 64px if navbar not found
+
+			// Calculate position with offset
+			const elementPosition =
+				el.getBoundingClientRect().top + window.pageYOffset;
+			const offsetPosition = elementPosition - navbarHeight - 16; // Added 16px extra padding for better spacing
+
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: 'smooth',
+			});
 		}
 		setIsMobileMenuOpen(false);
 	};
 
 	return (
 		<nav
-			className='w-[96%] mt-2 mx-auto  sticky top-1 z-50'
+			className='w-[96%] mt-1 mx-auto sticky top-1 z-50'
 			style={{
 				backgroundColor: theme.colors.bgDark,
 				borderColor: theme.colors.borderDim,
@@ -54,7 +66,7 @@ const Navbar = () => {
 									e.preventDefault();
 									scrollToSection(item.id);
 								}}
-								className='text-sm lg:text-base transition-all duration-200 hover:scale-105'
+								className='text-sm lg:text-base transition-all duration-200 hover:scale-105 cursor-pointer'
 								style={{
 									color: theme.colors.textLight,
 									fontWeight: theme.fontWeight.normal,
@@ -75,7 +87,7 @@ const Navbar = () => {
 					<div className='hidden md:block'>
 						<button
 							onClick={() => scrollToSection('request-demo')}
-							className='px-4 lg:px-6 py-1.5 lg:py-2 text-sm lg:text-sm transition-all duration-200 hover:opacity-90 hover:scale-105 hover:shadow-lg'
+							className='px-4 lg:px-6 py-1.5 lg:py-2 text-sm lg:text-sm transition-all duration-200 hover:opacity-90 hover:scale-105 hover:shadow-lg cursor-pointer'
 							style={{
 								backgroundColor: theme.colors.accentSecondary,
 								color: theme.colors.textLight,
@@ -162,7 +174,7 @@ const Navbar = () => {
 									e.preventDefault();
 									scrollToSection(item.id);
 								}}
-								className='block px-4 py-2.5 text-base rounded-lg transition-all duration-200 nav-link-mobile'
+								className='block px-4 py-2.5 text-base rounded-lg transition-all duration-200 nav-link-mobile cursor-pointer'
 								style={{
 									color: theme.colors.textDark,
 									fontWeight: theme.fontWeight.normal,
@@ -203,7 +215,7 @@ const Navbar = () => {
 					<div className='px-4 py-2'>
 						<button
 							onClick={() => scrollToSection('request-demo')}
-							className='w-full px-4 py-2 text-base rounded-lg transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]'
+							className='w-full px-4 py-2 text-base rounded-lg transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] cursor-pointer'
 							style={{
 								backgroundColor: theme.colors.accentSecondary,
 								color: theme.colors.textLight,

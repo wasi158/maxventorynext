@@ -17,11 +17,36 @@ export default function Footer() {
 	const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
 
 	const scrollToSection = (linkText: string) => {
-		// Convert link text to the corresponding ID format
-		const id = linkText.toLowerCase().replace(' ', '-');
+		// Map link text to actual section IDs used in your app
+		const idMap: { [key: string]: string } = {
+			Features: 'features',
+			Results: 'results',
+			'Request Demo': 'request-demo',
+			About: 'about',
+			'Privacy Policy': 'privacy-policy',
+			Support: 'support',
+			'Terms of Service': 'terms-of-service',
+		};
+
+		const id = idMap[linkText] || linkText.toLowerCase().replace(' ', '-');
 		const el = document.getElementById(id);
+
 		if (el) {
-			el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			// Get navbar height for offset
+			const navbar = document.querySelector('nav');
+			const navbarHeight = navbar?.offsetHeight || 64;
+
+			// Calculate position with offset
+			const elementPosition =
+				el.getBoundingClientRect().top + window.pageYOffset;
+			const offsetPosition = elementPosition - navbarHeight - 16; // Added 16px extra padding
+
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: 'smooth',
+			});
+		} else {
+			console.warn(`Element with id "${id}" not found`);
 		}
 	};
 
@@ -116,6 +141,7 @@ export default function Footer() {
 									background: 'none',
 									outline: 'none',
 									cursor: 'pointer',
+									display: 'inline-block',
 								}}
 							>
 								{l}
@@ -146,7 +172,8 @@ export default function Footer() {
 						{companyLinks.map((l) => (
 							<a
 								key={l}
-								href='#'
+								href={`#${l.toLowerCase().replace(' ', '-')}`}
+								onClick={(e) => handleLinkClick(e, l)}
 								onMouseEnter={() => setHoveredLink(l)}
 								onMouseLeave={() => setHoveredLink(null)}
 								style={{
@@ -157,6 +184,8 @@ export default function Footer() {
 									transition: 'color 0.2s ease',
 									background: 'none',
 									outline: 'none',
+									cursor: 'pointer',
+									display: 'inline-block',
 								}}
 							>
 								{l}
@@ -211,6 +240,11 @@ export default function Footer() {
 								transition: 'transform 0.3s ease',
 								transform:
 									hoveredSocial === key ? 'translateY(-4px)' : 'translateY(0)',
+							}}
+							onClick={(e) => {
+								e.preventDefault();
+								// Handle social media links
+								console.log(`Open ${alt} link`);
 							}}
 						>
 							<img

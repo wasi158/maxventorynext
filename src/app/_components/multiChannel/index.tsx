@@ -4,10 +4,10 @@ import { platforms, issues } from './data';
 export default function MultiChannelSection() {
 	return (
 		<section
+			className='relative bottom-[80px] lg:bottom-0'
 			style={{
 				background: theme.colors.bgWhite,
 				padding: `${theme.spacing[8]} ${theme.spacing[6]}`,
-				paddingTop: '40px',
 			}}
 		>
 			<h2
