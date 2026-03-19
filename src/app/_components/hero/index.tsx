@@ -27,7 +27,7 @@ const Hero = () => {
 			<div className='relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-12 h-full flex items-center justify-center'>
 				<div className='w-full'>
 					{/* Main Content - Centered */}
-					<div className='text-center space-y-6 md:space-y-8'>
+					<div className='text-center space-y-8 md:space-y-8'>
 						{/* Main Heading */}
 						<h1
 							className='md:w-[80%] mx-auto text-center text-3xl sm:text-4xl md:text-5xl lg:text-5xl leading-tight'
